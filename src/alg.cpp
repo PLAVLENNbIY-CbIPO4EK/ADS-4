@@ -55,15 +55,21 @@ int countPairs2(int *arr, int len, int value) {
 }
 
 int bpcP(int *arr, int l, int r, int x) {
+  int f = -1;
   while (l <= r) {
-    int gg = (l + r)/2;
+    int gg = l + (r - l)/2;
 
-    if (arr[gg] == x) return 1;
-    if (arr[gg] < x) l = gg + 1;
-    else r = gg - 1;
+    if (arr[gg] == x){
+      f = gg;
+      r = gg - 1;
+    }
+    if (arr[gg] < x){ 
+      l = gg + 1;
+    } else {
+      r = gg - 1;
+    }
   }
-
-  return 0;
+  if (f == -1) return 0;
 }
 
 int countPairs3(int *arr, int len, int value) {
@@ -71,10 +77,7 @@ int countPairs3(int *arr, int len, int value) {
 
   for (int i = 0; i < len; i++) {
     int n = value - arr[i];
-
-    if (bpcP(arr, i + 1, len - 1, n)) {
-      count++;
-    }
+    count += bpcP(arr, i + 1, len - 1, n)
   }
 
   return count;
