@@ -26,8 +26,7 @@ int countPairs2(int *arr, int len, int value) {
         int raz = right - left + 1;
         count += raz*(raz - 1)/2;
         break;
-      } 
-      else {
+      } else {
         int lft = 1;
         int rght = 1;
 
@@ -45,11 +44,9 @@ int countPairs2(int *arr, int len, int value) {
         left++;
         right--;
       }
-    } 
-    else if (s < value) {
+    } else if (sm < value) {
       left++;
-    } 
-    else {
+    } else {
       right--;
     }
   }
@@ -61,13 +58,9 @@ int bpcP(int *arr, int l, int r, int x) {
   while (l <= r) {
     int gg = (l + r)/2;
 
-    if (arr[gg] == x) 
-      return 1;
-    
-    if (arr[gg] < x) 
-      l = gg + 1;
-    else 
-      r = gg - 1;
+    if (arr[gg] == x) return 1;
+    if (arr[gg] < x) l = gg + 1;
+    else r = gg - 1;
   }
 
   return 0;
