@@ -15,6 +15,53 @@ int countPairs1(int *arr, int len, int value) {
 }
 
 int countPairs2(int *arr, int len, int value) {
+  int count = 0;
+
+  for (int i = 0; i < len; i++) {
+    int need = value - arr[i];
+
+    int L = i + 1;
+    int R = len - 1;
+    int first = -1;
+
+    while (L <= R) {
+      int m = (L + R) / 2;
+      if (arr[m] == need) {
+        first = m;
+        R = m - 1;
+      } else if (arr[m] < need) {
+        L = m + 1;
+      } else {
+        R = m - 1;
+      }
+    }
+
+    if (first == -1) continue;
+
+    int last = first;
+    L = first;
+    R = len - 1;
+
+    while (L <= R) {
+      int m = (L + R) / 2;
+      if (arr[m] == need) {
+        last = m;
+        L = m + 1;
+      } else if (arr[m] < need) {
+        L = m + 1;
+      } else {
+        R = m - 1;
+      }
+    }
+
+    count += (last - first + 1);
+  }
+
+  return count;
+}
+
+
+int countPairs3(int *arr, int len, int value) {
   int left = 0;
   int right = len - 1;
   int count = 0;
@@ -54,55 +101,3 @@ int countPairs2(int *arr, int len, int value) {
 
   return count;
 }
-
-int bpcP(int *arr, int l, int r, int x) {
-  int first = -1;
-
-  int L = l, R = r;
-  while (L <= R) {
-    int m = (L + R) / 2;
-    if (arr[m] == x) {
-      first = m;
-      R = m - 1;
-    } else if (arr[m] < x) {
-      L = m + 1;
-    } else {
-      R = m - 1;
-    }
-  }
-
-  if (first == -1) return 0;
-
-  int last = first;
-  L = first;
-  R = r;
-
-  while (L <= R) {
-    int m = (L + R) / 2;
-    if (arr[m] == x) {
-      last = m;
-      L = m + 1;
-    } else if (arr[m] < x) {
-      L = m + 1;
-    } else {
-      R = m - 1;
-    }
-  }
-
-  return last - first + 1;
-}
-
-int countPairs3(int *arr, int len, int value) {
-  int count = 0;
-
-  for (int i = 0; i < len; i++) {
-    int n = value - arr[i];
-    count += bpcP(arr, i + 1, len - 1, n);
-  }
-
-  return count;
-}
-
-
-
-
